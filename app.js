@@ -6,6 +6,8 @@ var logger = require('morgan');
 
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./routes/users');
+require('./app_api/models/db');
+var apiRouter = require('./app_api/routes/index');
 
 var app = express();
 
@@ -21,11 +23,16 @@ app.use(express.static(path.join(__dirname, 'public'), { index: false }));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', apiRouter);
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
