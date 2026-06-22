@@ -14,7 +14,54 @@ const tripsList = async function(req, res) {
     res.status(500).json(err);
   }
 };
+const tripsDeleteOne = async function(req, res) {
+  if (!req.params.tripId) {
+    return res.status(404).json({ message: 'Trip ID is required' });
+  }
 
+  try {
+    const trip = await Trip.findByIdAndDelete(req.params.tripId).exec();
+
+    if (!trip) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const tripsAddOne = async function(req, res) {
+  try {
+    const trip = await Trip.create(req.body);
+    res.status(201).json(trip);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
+
+const tripsUpdateOne = async function(req, res) {
+  if (!req.params.tripId) {
+    return res.status(404).json({ message: 'Trip ID is required' });
+  }
+
+  try {
+    const trip = await Trip.findByIdAndUpdate(
+      req.params.tripId,
+      req.body,
+      { new: true }
+    ).exec();
+
+    if (!trip) {
+      return res.status(404).json({ message: 'Trip not found' });
+    }
+
+    res.status(200).json(trip);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 const tripsFindByCode = async function(req, res) {
   if (!req.params.tripCode) {
     return res.status(404).json({ message: 'Trip code is required' });
@@ -35,5 +82,8 @@ const tripsFindByCode = async function(req, res) {
 
 module.exports = {
   tripsList,
-  tripsFindByCode
+  tripsFindByCode,
+  tripsUpdateOne,
+  tripsAddOne,
+  tripsDeleteOne
 };

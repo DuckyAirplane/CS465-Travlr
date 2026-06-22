@@ -1,0 +1,109 @@
+<div class="container mt-4">
+  <h1>Travlr Getaways Admin</h1>
+  <p>Trips loaded: {{ trips.length }}</p>
+<div class="card mb-4">
+  <div class="card-header">
+    Add Trip
+  </div>
+
+  <div class="card-body">
+    <div class="mb-3">
+      <label class="form-label">Code</label>
+      <input class="form-control" [(ngModel)]="newTrip.code">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input class="form-control" [(ngModel)]="newTrip.name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Length</label>
+      <input class="form-control" [(ngModel)]="newTrip.length">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Start</label>
+      <input class="form-control" [(ngModel)]="newTrip.start">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Resort</label>
+      <input class="form-control" [(ngModel)]="newTrip.resort">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price Per Person</label>
+      <input class="form-control" [(ngModel)]="newTrip.perPerson">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Image</label>
+      <input class="form-control" [(ngModel)]="newTrip.image">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea class="form-control" [(ngModel)]="newTrip.description"></textarea>
+    </div>
+
+    <button class="btn btn-success" (click)="addTrip()">Add Trip</button>
+  </div>
+</div>
+  <div *ngIf="selectedTrip" class="card mb-4">
+    <div class="card-header">
+      Edit Trip
+    </div>
+
+    <div class="card-body">
+      <div class="mb-3">
+        <label class="form-label">Code</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.code">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.name">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Length</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.length">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Start</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.start">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Resort</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.resort">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Price Per Person</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.perPerson">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Image</label>
+        <input class="form-control" [(ngModel)]="selectedTrip.image">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" [(ngModel)]="selectedTrip.description"></textarea>
+      </div>
+
+      <button class="btn btn-success me-2" (click)="saveTrip()">Update</button>
+      <button class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let trip of trips">
+      <app-trip-card [trip]="trip" (editTrip)="editTrip($event)" (deleteTrip)="deleteTrip($event)"></app-trip-card>
+    </div>
+  </div>
+</div>
